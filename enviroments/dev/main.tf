@@ -3,30 +3,34 @@ provider "aws" {
   profile = var.profile
 }
 
-
-module "instance" {
-  source          = "/Users/sibyl/Documents/development/terraform/modules/aws_instance"
-  environment     = var.environment
-  subnet_id       = module.vpc.altcloud_public_subnet_id
-  key_name        = var.key_name
-  key_filename    = var.key_filename
-  security_group  = var.security_group
-  ami             = var.ami
-  instance_type   = var.instance_type
-
-  tags = {
-    Terraform    = "true"
-    Environment  = var.environment
-  }
-}
-
 module "vpc" {
-  source    = "/Users/sibyl/Documents/development/terraform/modules/vpc"
-  region    = var.region
+  source            = "/Users/sibyl/Documents/development/terraform/modules/vpc"
+  region            = var.region
+  vpc_name          = "altcloud_vpc"
+  cidr_block        = "10.24.0.0/16"
+  availability_zone = "eu-west-1a"
 
   vpc_tags = {
     Name        = "altcloud_vpc"
     Terraform   = "true"
+    Environment = var.environment
+  }
+}
+
+module "instance" {
+  source          = "/Users/sibyl/Documents/development/terraform/modules/aws_instance"
+  region          = var.region
+  profile         = var.profile
+  subnet_id       = module.vpc.altcloud_public_subnet_id
+  key_name        = var.key_name
+  key_filename    = var.key_filename
+  instance_ami    = var.ami
+  vpc_id_id       = module.vpc.vpc_id
+  security_name   = var.security_name
+  instance_type   = var.instance_type
+
+  tags = {
+    Terraform    = "true"
     Environment = var.environment
   }
 }

@@ -29,3 +29,7 @@ variable "key_filename" {
 variable "security_group" {
  default = "altcloud-sg"
 }
+
+variable "security_name" {
+  description = "Name for the security group"
+}
