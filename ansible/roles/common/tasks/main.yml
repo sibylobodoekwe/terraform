@@ -1,0 +1,7 @@
+---
+- name: Update and upgrade packages
+  apt:
+    update_cache: yes
+    upgrade: yes
+    cache_valid_time: 3600
+  become: true

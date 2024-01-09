@@ -27,7 +27,7 @@ resource "aws_instance" "altcloud_instance" {
     # Execute Ansible playbook
     sudo apt-get install -y python3-pip
     sudo pip3 install boto
-    ansible-playbook -i "localhost," -c local /path/to/your/ansible/playbook.yml
+    ansible-playbook -i "localhost," -c local /Users/sibyl/Documents/development/terraform/ansible/playbook.yml
   EOF
 }
 

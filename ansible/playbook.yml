@@ -1,0 +1,12 @@
+---
+- name: Provision AWS instances
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Include common tasks
+      include_role:
+        name: common
+
+    - name: Include Docker tasks
+      include_role:
+        name: docker

@@ -1,41 +1,40 @@
-variable "ami" {
-  description = "The AMI ID for the instance"
-  type        = string
+variable "region" {
+  description = "AWS region"
+}
+
+variable "profile" {
+  description = "AWS profile"
+}
+
+variable "instance_ami" {
+  description = "AMI for the instance"
 }
 
 variable "instance_type" {
-  description = "The instance type"
-  type        = string
+  description = "Instance type"
 }
 
 variable "subnet_id" {
-  description = "The ID of the subnet where the instance will be launched"
-  type        = string
+  description = "Subnet ID"
 }
 
 variable "key_name" {
-  description = "The name of the SSH key pair"
-  type        = string
-}
-
-variable "key_filename" {
-  description = "The path to the public key file"
-  type        = string
-}
-
-variable "security_group" {
-  description = "The security group for the instance"
-  type        = string
-}
-
-variable "environment" {
-  description = "The environment for the instance"
-  type        = string
+  description = "Key name for the instance"
 }
 
 variable "tags" {
-  description = "Additional tags for the instance"
+  description = "Tags for the instance"
   type        = map(string)
 }
 
+variable "key_filename" {
+  description = "Path to the private key file"
+}
 
+variable "security_name" {
+  description = "Name for the security group"
+}
+
+variable "vpc_id_id" {
+  description = "ID of the VPC"
+}
