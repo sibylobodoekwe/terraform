@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"instance","Source":"file:///Users/sibyl/Documents/development/terraform/modules/aws_instance","Dir":".terraform/modules/instance"},{"Key":"vpc","Source":"file:///Users/sibyl/Documents/development/terraform/modules/vpc","Dir":".terraform/modules/vpc"}]}
