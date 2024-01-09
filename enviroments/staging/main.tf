@@ -1,6 +1,6 @@
 
 provider "aws" {
-  region = "eu-central-1"
+  region = "eu-west-1b"
 }
 
 module " instance_staging" {

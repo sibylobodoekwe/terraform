@@ -1,16 +1,21 @@
 provider "aws" {
-  region  = var.region
-  profile = var.profile
+ region = "eu-west-2"
+ profile = "default"
 }
 
 resource "aws_instance" "altcloud_instance" {
-  ami           = var.instance_ami
-  instance_type = var.instance_type
-  subnet_id     = var.subnet_id
-  key_name      = var.key_name
-  tags          = var.tags
+ ami           = "ami-0c55b159cbfafe1f0"
+ instance_type = "t2.micro"
+ subnet_id     = "subnet-055b159f4a2889a7b"
+ key_name      = "altcloud_ssh"
 
-  user_data = <<-EOF
+ vpc_security_group_ids = [aws_security_group.sg-group.id]
+
+ tags = {
+    Name = "AltCloud Instance"
+ }
+
+ user_data = <<-EOF
     #!/bin/bash
     sudo apt-get update
     sudo apt-get upgrade -y
@@ -28,54 +33,36 @@ resource "aws_instance" "altcloud_instance" {
     sudo apt-get install -y python3-pip
     sudo pip3 install boto
     ansible-playbook -i "localhost," -c local /Users/sibyl/Documents/development/terraform/ansible/playbook.yml
-  EOF
+ EOF
 }
 
-# Create a key pair
-resource "aws_key_pair" "testkey" {
-  key_name   = var.key_name
-  public_key = tls_private_key.ssh_key.public_key_openssh
-}
 
-# Create a private key
-resource "tls_private_key" "ssh_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-# Put the private key in a local file
-resource "local_file" "testkey_private" {
-  content  = tls_private_key.ssh_key.private_key_pem
-  filename = var.key_filename
-}
-
-# CREATE A SECURITY GROUP
 resource "aws_security_group" "sg-group" {
-  name        = var.security_name
-  vpc_id      = var.vpc_id_id
+ name        = "allow_tcp"
+ vpc_id      = "vpc-05ad99cbfa33cfa62"
 
-  ingress {
+ ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }
+ }
 
-  ingress {
+ ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }
+ }
 
-  egress {
+ egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-  }
+ }
 
-  tags = {
+ tags = {
     Name = "allow_tcp"
-  }
+ }
 }

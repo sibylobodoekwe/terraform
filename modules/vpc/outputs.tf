@@ -1,4 +1,3 @@
-
 output "vpc_id" {
   value = aws_vpc.altcloud_vpc.id
 }
