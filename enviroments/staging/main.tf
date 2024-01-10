@@ -10,11 +10,3 @@ module " instance_staging" {
   subnet_id  = "subnet-abc"  # Specify your subnet ID
   key_name   = "staging-keypair"
 }
-
-module "ansible_staging" {
-  source = "../modules/ansible"
-}
-
-module "docker_staging" {
-  source = "../modules/docker"
-}
