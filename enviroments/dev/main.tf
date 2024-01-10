@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 module "vpc" {
- source = "/Users/sibyl/Documents/development/terraform/modules/vpc"
+ source = "../modules/vpc"
  region                 = var.region["eu-west-1"]
   vpc_name               = var.vpc_name
   vpc_cidr_block         = var.vpc_cidr_block
@@ -42,14 +42,14 @@ resource "aws_instance" "example" {
   ami           = var.ami
   instance_type = var.instance_type
 
-  subnet_id = aws_subnet.public_subnet[0].id  # Assuming you want to launch in the first public subnet
+  subnet_id = aws_subnet.public_subnet[0].id 
 }
 
 module "instance" {
-  source         = "/Users/sibyl/Documents/development/terraform/modules/aws_instance"
+  source         = "../modules/aws_instance"
   region         = var.region["eu-west-1"]
   profile        = var.profile
-  subnet_id      = aws_subnet.public_subnet[0].id  # Assuming you want to launch in the first public subnet
+  subnet_id      = aws_subnet.public_subnet[0].id 
   key_name       = var.key_name
   key_filename   = var.key_filename
   instance_ami   = var.ami
