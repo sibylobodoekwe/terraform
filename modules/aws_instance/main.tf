@@ -21,18 +21,12 @@ resource "aws_instance" "altcloud_instance" {
     sudo apt-get upgrade -y
     sudo apt-get install -y software-properties-common python-apt-common
     sudo apt install -y ansible
-    sudo apt install apt-transport-https ca-certificates curl software-properties-common
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubuntu jammy stable"
-    sudo apt-cache policy docker-ce
     sudo apt install docker-ce
     sudo systemctl enable docker
     sudo systemctl status docker
-
-    # Execute Ansible playbook
     sudo apt-get install -y python3-pip
     sudo pip3 install boto
-    ansible-playbook -i "localhost," -c local /Users/sibyl/Documents/development/terraform/ansible/playbook.yml
+    ansible-playbook -i "localhost," -c local /Users/ansible/playbook.yml
  EOF
 }
 
