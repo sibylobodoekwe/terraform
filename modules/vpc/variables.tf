@@ -52,7 +52,7 @@ variable "key_name" {
 
 variable "key_filename" {
  type = string
- default = "/Users/sibyl/.ssh/altcloud_ssh.pub"
+ default = "/Users/.ssh/altcloud_ssh.pub"
 }
 
 variable "security_group" {
